@@ -44,6 +44,7 @@ public class Taxi extends Vehicle
      */
     public void pickup(Passenger passenger)
     {
+        passenger.driverAcceptBooking();
         setTargetLocation(passenger.getDestination());
     }
 

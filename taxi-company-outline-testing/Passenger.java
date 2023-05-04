@@ -9,6 +9,8 @@ public class Passenger
 {
     private Location pickup;
     private Location destination;
+    private boolean bookingAcceptedByDriver;
+    private double accountBalance;
 
     /**
      * Constructor for objects of class Passenger
@@ -26,6 +28,8 @@ public class Passenger
         }
         this.pickup = pickup;
         this.destination = destination;
+        bookingAcceptedByDriver = false;
+        accountBalance = 0;
     }
 
     /**
@@ -42,5 +46,25 @@ public class Passenger
     public Location getDestination()
     {
         return destination;
+    }
+
+    public double getAccountBalance() {
+        return accountBalance;
+    }
+
+    public boolean driverAcceptBooking() {
+        return bookingAcceptedByDriver = true;
+    }
+
+    public void incrementBalance(double amount) {
+        accountBalance += amount;
+    }
+
+    public double makePayment(double rideCost) {
+        if(accountBalance >= rideCost) {
+            accountBalance -= rideCost;
+            return 0;
+        }
+        return rideCost;
     }
 }

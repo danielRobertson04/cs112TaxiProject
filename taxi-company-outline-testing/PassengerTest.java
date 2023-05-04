@@ -11,11 +11,38 @@ import org.junit.Test;
  */
 public class PassengerTest
 {
+
+    Passenger passenger;
+    Location pickup;
+    Location dropoff;
+    double accountBalance;
     /**
      * Default constructor for test class PassengerTest
      */
     public PassengerTest()
     {
+        pickup = new Location("Waterloo Street");
+        dropoff = new Location("Bothwell Street");
+        passenger = new Passenger(pickup, dropoff);
+        accountBalance = 0;
+    }
+
+    @Test
+    public void TestPassengerDetailsAreCorrect() {
+        assertEquals(passenger.getPickupLocation(), pickup);
+        assertEquals(passenger.getDestination(), dropoff);
+    }
+
+    @Test
+    public void TestPassengerBalanceIncrease() {
+        passenger.incrementBalance(12);
+        assertEquals(12, passenger.getAccountBalance(), 0.001);
+    }
+
+    @Test
+    public void TestMakePaymentMethod() {
+        passenger.incrementBalance(20);
+        assertEquals(passenger.makePayment(20), 0, 0.001);
     }
 
     /**

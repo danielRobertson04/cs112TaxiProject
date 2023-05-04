@@ -64,6 +64,7 @@ public class TaxiTest
         Passenger passenger = new Passenger(pickup, destination);
         taxi.pickup(passenger);
         assertEquals(false, taxi.isFree());
+        assertTrue(passenger.driverAcceptBooking());
     }
     
     /**
