@@ -28,8 +28,10 @@ public class TaxiCompany
      */
     public boolean requestPickup(Passenger passenger)
     {
+        Payment rideCost = new Payment(23);
+        double paid = passenger.makePayment(rideCost.getCost());
         Vehicle vehicle = scheduleVehicle();
-        if(vehicle != null) {
+        if(vehicle != null && paid == 0) {
             vehicle.setPickupLocation(passenger.getPickupLocation());
             return true;
         }
