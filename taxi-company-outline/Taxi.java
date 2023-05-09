@@ -55,4 +55,8 @@ public class Taxi extends Vehicle
     {
         clearTargetLocation();
     }
+    //gets passenger and returns it
+    public Passenger getPassenger(){
+    return passenger;
+    }
 }
