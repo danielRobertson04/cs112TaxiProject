@@ -92,4 +92,10 @@ public class Taxi extends Vehicle
     {
         return "Taxi at " + getLocation();
     }
+    
+    //gets the currrent passenger and returns it 
+    public Passenger getPassenger(){
+        return passneger; 
+    }
+    
 }

@@ -77,5 +77,45 @@ public class TaxiTest
         taxi.offloadPassenger();
         assertEquals(true, taxi.isFree());
     }
+    
+    //rajveer point 4 tests
+ //Test that a taxi has arrived at the pickup location.
+
+@Test
+public void testArriveAtPickupLocation()
+{
+    Location pickup = new Location(1, 2);
+    Location destination = new Location(3, 4);
+    Passenger passenger = new Passenger(pickup, destination);
+    taxi.pickup(passenger);
+    assertEquals(pickup, taxi.getCurrentLocation());
+}
+
+ //Test that a taxi has picked up the correct passenger.
+
+@Test
+public void testPickupCorrectPassenger()
+{
+    Location pickup = new Location(1, 2);
+    Location destination = new Location(3, 4);
+    Passenger passenger = new Passenger(pickup, destination);
+    taxi.pickup(passenger);
+    assertEquals(passenger, taxi.getPassenger());
+}
+
+
+// Test that a taxi has arrived at the passenger's destination
+@Test
+public void testArriveAtDestination()
+{
+    Location pickup = new Location(1, 2);
+    Location destination = new Location(3, 4);
+    Passenger passenger = new Passenger(pickup, destination);
+    taxi.pickup(passenger);
+    taxi.offloadPassenger();
+    assertEquals(destination, taxi.getCurrentLocation());
+}
+
+    
 }
 
