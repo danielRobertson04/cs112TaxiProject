@@ -41,6 +41,7 @@ public class TaxiCompany
      */
     public boolean requestPickup(Passenger passenger)
     {
+//        check destination is valid
         Vehicle vehicle = scheduleVehicle();
         if(vehicle != null) {
             assignments.put(vehicle, passenger);

@@ -19,6 +19,7 @@ public class Passenger implements DrawableItem
      * @param pickup The pickup location, must not be null.
      * @param destination The destination location, must not be null.
      * @throws NullPointerException If either location is null.
+     * @throws InvalidPickupDestinationException if both destination equals pickup
      */
     public Passenger(Location pickup, Location destination)
     {
@@ -27,6 +28,9 @@ public class Passenger implements DrawableItem
         }
         if(destination == null) {
             throw new NullPointerException("Destination location");
+        }
+        if(destination.equals(pickup)) {
+            throw new InvalidPickupDestinationException(pickup);
         }
         this.pickup = pickup;
         this.destination = destination;

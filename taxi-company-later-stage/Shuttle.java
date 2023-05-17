@@ -50,6 +50,7 @@ public class Shuttle extends Vehicle
      */
     public void setPickupLocation(Location location)
     {
+        //Check valid Location
         destinations.add(location);
         chooseTargetLocation();
     }
@@ -61,6 +62,7 @@ public class Shuttle extends Vehicle
      */
     public void pickup(Passenger passenger)
     {
+        //Only add destination if the list doesnt already contain it
         passengers.add(passenger);
         destinations.add(passenger.getDestination());
         chooseTargetLocation();
@@ -77,6 +79,7 @@ public class Shuttle extends Vehicle
     /**
      * Offload a passenger whose destination is the
      * current location.
+     * Remove their destination from the list
      */
     public void offloadPassenger()
     {

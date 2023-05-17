@@ -38,6 +38,7 @@ public class Location
      */
     public Location nextLocation(Location destination)
     {
+        //Add something to check that it is in a straight line? Throw error if not
         int destX = destination.getX();
         int destY = destination.getY();
         int offsetX = x < destX ? 1 : x > destX ? -1 : 0;
@@ -70,6 +71,7 @@ public class Location
      */
     public boolean equals(Object other)
     {
+        //check neither location is null?
         if(other instanceof Location) {
             Location otherLocation = (Location) other;
             return x == otherLocation.getX() &&
@@ -85,7 +87,7 @@ public class Location
      */
     public String toString()
     {
-        return "location " + x + "," + y;
+        return "location coordinates (x,y): " + x + "," + y;
     }
 
     /**
@@ -96,6 +98,7 @@ public class Location
      */
     public int hashCode()
     {
+        //Check output is valid? Throw error?
         return (y << 16) + x;
     }
 
