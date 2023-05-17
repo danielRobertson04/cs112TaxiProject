@@ -13,6 +13,9 @@ public class Simulation
     private List<Actor> actors;
     private int step;
 
+    private PassengerSource source;
+    private TaxiCompany company;
+
     /**
      * Create the initial set of actors for the simulation.
      */
@@ -21,8 +24,8 @@ public class Simulation
         actors = new LinkedList<>();
         step = 0;
         City city = new City();
-        TaxiCompany company = new TaxiCompany(city);
-        PassengerSource source = new PassengerSource(city, company);
+        company = new TaxiCompany(city);
+        source = new PassengerSource(city, company);
         
         actors.addAll(company.getVehicles());
         actors.add(source);
@@ -38,8 +41,10 @@ public class Simulation
         for(int i = 0; i < 500; i++){
             step++;
             step();
+//            System.out.println("Missed Pickups: " + getMissedPickups());
             wait(100);
         }
+
     }
 
     /**
@@ -67,5 +72,9 @@ public class Simulation
         {
             // ignore the exception
         }
+    }
+
+    public int getMissedPickups(){
+        return source.getMissedPickups();
     }
 }

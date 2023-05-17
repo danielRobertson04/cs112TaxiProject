@@ -23,12 +23,22 @@ public class Taxi extends Vehicle implements DrawableItem
     public Taxi(TaxiCompany company, Location location)
     {
         super(company, location);
-    // Load the two images.
-        emptyImage = new ImageIcon(getClass().getResource(
-                                "images/taxi.jpg")).getImage();
 
-        passengerImage = new ImageIcon(getClass().getResource(
-                                "images/taxi+person.jpg")).getImage();
+        if(company == null) {
+            throw new NullPointerException("Taxi Company");
+        }
+        if(location == null) {
+            throw new NullPointerException("Location");
+        }
+
+
+
+    // Load the two images.
+            emptyImage = new ImageIcon(getClass().getResource(
+                    "images/taxi.jpg")).getImage();
+
+            passengerImage = new ImageIcon(getClass().getResource(
+                    "images/taxi+person.jpg")).getImage();
     }
     
     /**
@@ -40,6 +50,7 @@ public class Taxi extends Vehicle implements DrawableItem
         Location target = getTargetLocation();
         if(target != null) {
             // Find where to move to next.
+            incrementTimer();
             Location next = getLocation().nextLocation(target);
             setLocation(next);
             if(next.equals(target)) {
@@ -59,7 +70,7 @@ public class Taxi extends Vehicle implements DrawableItem
 
     /**
      * Is the taxi free?
-     * @return Whether or not this taxi is free.
+     * @return Whether this taxi is free.
      */
     public boolean isFree()
     {
@@ -74,6 +85,9 @@ public class Taxi extends Vehicle implements DrawableItem
     public void setPickupLocation(Location location)
     {
         setTargetLocation(location);
+        super.setDrivingToDestination(false);
+        super.setDrivingToPassenger(true);
+
     }
     
     /**
@@ -83,8 +97,10 @@ public class Taxi extends Vehicle implements DrawableItem
      */
     public void pickup(Passenger passenger)
     {
-        this.passenger = passenger;
-        setTargetLocation(passenger.getDestination());
+            this.passenger = passenger;
+        if(getTargetLocation() == null) {
+            setTargetLocation(passenger.getDestination());
+        }
     }
 
     /**

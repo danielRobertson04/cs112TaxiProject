@@ -52,7 +52,10 @@ public class City
      */
     public Iterator<Item> getItems()
     {
+        if(items.isEmpty()){throw new NullPointerException("Items");}
+
         return items.iterator();
+
     }
 
     /**
@@ -77,7 +80,7 @@ public class City
         if(!items.remove(item)) {
             throw new IllegalArgumentException(
                         item + " is not in the city.");
-        }
+        }else if(items.isEmpty()){throw new NullPointerException("Items");}
     }
         
     /**

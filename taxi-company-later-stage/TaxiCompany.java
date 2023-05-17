@@ -21,13 +21,18 @@ public class TaxiCompany
     // they are to pick up.
     private Map<Vehicle, Passenger> assignments;
 
-    private static final int NUMBER_OF_TAXIS = 3;
+    private static final int NUMBER_OF_TAXIS = 1;
 
     /**
      * @param city The city.
      */
     public TaxiCompany(City city)
     {
+
+        if(city == null) {
+            throw new NullPointerException("City");
+        }
+
         this.city = city;
         vehicles = new LinkedList<>();
         assignments = new HashMap<>();
