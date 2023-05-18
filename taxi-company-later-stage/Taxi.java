@@ -110,6 +110,7 @@ public class Taxi extends Vehicle implements DrawableItem
     {
         passenger = null;
         clearTargetLocation();
+        incrementNumPassengers();
     }
     
     /**

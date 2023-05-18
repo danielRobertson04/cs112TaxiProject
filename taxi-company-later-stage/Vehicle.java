@@ -20,7 +20,9 @@ public abstract class Vehicle implements Actor
     private int travelTimeDestination;
     private int idleCount;
 
-
+    private int numPassengers;
+    private int avgPickUp;
+    private int avgDropOff;
 
     /**
      * Constructor of class Vehicle
@@ -44,6 +46,9 @@ public abstract class Vehicle implements Actor
         travelTimePickup = 0;
         travelTimeDestination = 0;
         idleCount = 0;
+        avgPickUp = 0;
+        avgDropOff = 0;
+        numPassengers = 0;
     }
 
     /**
@@ -176,27 +181,61 @@ public abstract class Vehicle implements Actor
 
     public void incrementTimer(){
         if (drivingToDestination == true) {
+            avgDropOff++;
             travelTimeDestination++;
         } else if (drivingToPassenger == true) {
             travelTimePickup++;
+            avgPickUp++;
         }
     }
 
     public void setDrivingToDestination(boolean flag) {
         this.drivingToDestination = flag;
-        System.out.println("Time driving to Passenger Pickup: " + getPickupTime());
-        System.out.println("Time driving to Passenger Drop off: " + getDropOffTime());
-    }
-    public void setDrivingToPassenger(boolean flag) {
-        this.drivingToPassenger = flag;
+        System.out.println("Picked Up Passenger");
         System.out.println("Time driving to Passenger Pickup: " + getPickupTime());
         System.out.println("Time driving to Passenger Drop off: " + getDropOffTime() + "\n");
     }
+    public void setDrivingToPassenger(boolean flag) {
+        this.drivingToPassenger = flag;
+        System.out.println("On route to Passenger");
+    }
 
-    public Integer getPickupTime() {
+    public int getPickupTime() {
         return travelTimePickup;
     }
-    public Integer getDropOffTime() {
+
+    public double getAvgDropOff() {
+        calculateAvgDropOffTime();
+        return avgDropOff;
+    }
+    public double getAvgPickUp() {
+        calculateAvgPickUpTime();
+        return avgPickUp;
+    }
+
+    public double calculateAvgDropOffTime() {
+
+        if(numPassengers == 0){
+            return 0;
+        }
+
+        avgDropOff = avgDropOff / numPassengers;
+        return avgDropOff;
+    }
+
+    public double calculateAvgPickUpTime() {
+        if(numPassengers == 0){
+            return 0;
+        }
+        avgPickUp = avgPickUp / numPassengers;
+        return avgPickUp;
+    }
+
+    public void incrementNumPassengers(){
+        numPassengers++;
+    }
+
+    public int getDropOffTime() {
         return travelTimeDestination;
     }
     public void resetPickupTime() {

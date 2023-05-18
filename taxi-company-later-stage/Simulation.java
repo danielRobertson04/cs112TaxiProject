@@ -41,10 +41,9 @@ public class Simulation
         for(int i = 0; i < 500; i++){
             step++;
             step();
-//            System.out.println("Missed Pickups: " + getMissedPickups());
             wait(100);
         }
-
+        generateReport();
     }
 
     /**
@@ -76,5 +75,31 @@ public class Simulation
 
     public int getMissedPickups(){
         return source.getMissedPickups();
+    }
+
+    public void generateReport(){
+
+        List<Vehicle> driverList = company.getVehicles();
+        Iterator<Vehicle> drivers = driverList.iterator();
+        double avgTotalPickup = 0;
+        double avgTotalDropOff = 0;
+        double avgIdleTime = 0;
+
+        while (drivers.hasNext()){
+            Vehicle currentVehicle = drivers.next();
+            avgTotalPickup = avgTotalPickup + currentVehicle.getAvgPickUp();
+            avgTotalDropOff = avgTotalDropOff + currentVehicle.getAvgDropOff();
+            avgIdleTime = avgIdleTime + currentVehicle.getIdleCount();
+        }
+
+        avgTotalPickup = (avgTotalPickup / driverList.size()) / 10;
+        avgTotalDropOff = (avgTotalDropOff + driverList.size()) / 10;
+        avgIdleTime = (avgIdleTime + driverList.size()) / 10;
+
+        System.out.println("Average Pick up Time: " + avgTotalPickup + " seconds");
+        System.out.println("Average Drop off Time: " + avgTotalDropOff + " seconds");
+        System.out.println("Number of Missed Passengers: " + source.getMissedPickups());
+        System.out.println("Total idle time: " + avgIdleTime + " seconds");
+
     }
 }
