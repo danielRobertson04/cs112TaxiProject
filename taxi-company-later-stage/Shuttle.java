@@ -37,11 +37,15 @@ public class Shuttle extends Vehicle
 
     /**
      * Is the shuttle free?
-     * @return Whether or not this vehicle is free.
+     * @return Whether this vehicle is free.
      */
     public boolean isFree()
     {
-        return true;
+        if(destinations.isEmpty()) {
+            return true;
+        }else{
+            return false;
+        }
     }
     
     /**
@@ -50,7 +54,10 @@ public class Shuttle extends Vehicle
      */
     public void setPickupLocation(Location location)
     {
-        destinations.add(location);
+        if(!destinations.contains(location)){
+            destinations.add(location);
+        }
+
         chooseTargetLocation();
     }
     
@@ -61,8 +68,11 @@ public class Shuttle extends Vehicle
      */
     public void pickup(Passenger passenger)
     {
+        //Only add destination if the list doesnt already contain it
         passengers.add(passenger);
-        destinations.add(passenger.getDestination());
+        if(!destinations.contains(passenger.getDestination())) {
+            destinations.add(passenger.getDestination());
+        }
         chooseTargetLocation();
     }
 
@@ -77,6 +87,7 @@ public class Shuttle extends Vehicle
     /**
      * Offload a passenger whose destination is the
      * current location.
+     * Remove their destination from the list
      */
     public void offloadPassenger()
     {

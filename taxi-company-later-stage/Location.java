@@ -17,11 +17,13 @@ public class Location
      */
     public Location(int x, int y)
     {
-        if(x < 0) {
+        City city = new City();
+
+        if(x < 0 && x < city.getWidth()) {
             throw new IllegalArgumentException(
                         "Negative x-coordinate: " + x);
         }
-        if(y < 0) {
+        if(y < 0 && y < city.getHeight()) {
             throw new IllegalArgumentException(
                         "Negative y-coordinate: " + y);
         }
@@ -85,7 +87,7 @@ public class Location
      */
     public String toString()
     {
-        return "location " + x + "," + y;
+        return "location coordinates (x,y): " + x + "," + y;
     }
 
     /**
@@ -96,6 +98,7 @@ public class Location
      */
     public int hashCode()
     {
+        //Check output is valid? Throw error?
         return (y << 16) + x;
     }
 

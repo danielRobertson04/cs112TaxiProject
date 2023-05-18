@@ -13,6 +13,9 @@ public class Simulation
     private List<Actor> actors;
     private int step;
 
+    private PassengerSource source;
+    private TaxiCompany company;
+
     /**
      * Create the initial set of actors for the simulation.
      */
@@ -21,8 +24,8 @@ public class Simulation
         actors = new LinkedList<>();
         step = 0;
         City city = new City();
-        TaxiCompany company = new TaxiCompany(city);
-        PassengerSource source = new PassengerSource(city, company);
+        company = new TaxiCompany(city);
+        source = new PassengerSource(city, company);
         
         actors.addAll(company.getVehicles());
         actors.add(source);
@@ -40,6 +43,7 @@ public class Simulation
             step();
             wait(100);
         }
+        generateReport();
     }
 
     /**
@@ -67,5 +71,35 @@ public class Simulation
         {
             // ignore the exception
         }
+    }
+
+    public int getMissedPickups(){
+        return source.getMissedPickups();
+    }
+
+    public void generateReport(){
+
+        List<Vehicle> driverList = company.getVehicles();
+        Iterator<Vehicle> drivers = driverList.iterator();
+        double avgTotalPickup = 0;
+        double avgTotalDropOff = 0;
+        double avgIdleTime = 0;
+
+        while (drivers.hasNext()){
+            Vehicle currentVehicle = drivers.next();
+            avgTotalPickup = avgTotalPickup + currentVehicle.getAvgPickUp();
+            avgTotalDropOff = avgTotalDropOff + currentVehicle.getAvgDropOff();
+            avgIdleTime = avgIdleTime + currentVehicle.getIdleCount();
+        }
+
+        avgTotalPickup = (avgTotalPickup / driverList.size()) / 10;
+        avgTotalDropOff = (avgTotalDropOff + driverList.size()) / 10;
+        avgIdleTime = (avgIdleTime + driverList.size()) / 10;
+
+        System.out.println("Average Pick up Time: " + avgTotalPickup + " seconds");
+        System.out.println("Average Drop off Time: " + avgTotalDropOff + " seconds");
+        System.out.println("Number of Missed Passengers: " + source.getMissedPickups());
+        System.out.println("Total idle time: " + avgIdleTime + " seconds");
+
     }
 }
